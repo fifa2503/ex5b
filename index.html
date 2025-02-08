@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="container-fluid">
-    <h1>Temperature conversion</h1>
+    <h1>Temperature Conversion</h1>
     <img src="images/temperature.gif" class="img-fluid" alt="runner logo" width="150" height="150"><br>
     <hr>
     <form role="form" method="GET">
@@ -46,26 +46,11 @@
           return;
         }
 
-        var convertedTemp, unitName;
-
-        switch(unit) {
-          case "F":
-            convertedTemp = temp * (9/5) + 32;
-            unitName = "Fahrenheit";
-            break;
-          case "K":
-            convertedTemp = parseFloat(temp) + 273.15;
-            unitName = "Kelvin";
-            break;
-          case "R":
-            convertedTemp = temp * (4/5);
-            unitName = "Réaumur";
-            break;
-        }
-
-        alert("Temperature is " + convertedTemp + " in " + unitName);
+        var result = convertTemperature(parseFloat(temp), unit);
+        alert("Temperature is " + result.value + " in " + result.unit);
       });
 
+      // ฟังก์ชันตรวจสอบค่าที่ผู้ใช้ป้อน
       function validateTemperature(temp) {
         if (isNaN(temp)) {
           alert("Please verify whether the temperature value is correct!!!");
@@ -79,6 +64,28 @@
         }
 
         return true;
+      }
+
+      // ฟังก์ชันคำนวณการแปลงอุณหภูมิ
+      function convertTemperature(temp, unit) {
+        let convertedTemp, unitName;
+
+        switch(unit) {
+          case "F":
+            convertedTemp = temp * (9/5) + 32;
+            unitName = "Fahrenheit";
+            break;
+          case "K":
+            convertedTemp = temp + 273.15;
+            unitName = "Kelvin";
+            break;
+          case "R":
+            convertedTemp = temp * (4/5);
+            unitName = "Réaumur";
+            break;
+        }
+
+        return { value: convertedTemp, unit: unitName };
       }
     });
   </script>
